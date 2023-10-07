@@ -1,41 +1,17 @@
-import img1 from '../../../../public/img11.webp';
-import img2 from '../../../../public/img12.jpg';
-import img3 from '../../../../public/img13.jpg';
-import img4 from '../../../../public/img14.jpeg';
-import img5 from '../../../../public/panda2.webp';
+import banner from '../../../assets/images/banner.png'
+
 const Banner = () => {
     return (
-       <div>
-         <div className='flex text-center m-6 p-8 gap-6 md:flex-none'>
-            <div className=" carousel rounded-box max-w-96 max-h-96 flex-1 w-64 ">
-                <div className="carousel-item ">
-                    <img  src={img1} alt="" />
+        <div className='w-full'>
+            <div className='relative'>
+                <img src={banner} alt="" className='w-full md:h-[550px]' />
+                <div className='absolute w-7/12 top-8 md:top-32 mt-5 md:mt-12 pl-5 md:pl-10 space-y-7'>
+                    <h2 className='text-4xl md:text-6xl w-11/12 font-bold'>Shop The Best Toy For Your Child</h2>
+                    <p className='w-10/12 text-xl invisible md:visible'>TenJoy is a toy market place that have the best animal toys you will find <br /> in one single place.</p>
                 </div>
-                <div className="carousel-item">
-                    <img src={img2} alt="" />
-                </div>
-                <div className="carousel-item">
-                    <img src={img3} alt="" />
-                </div>
-                <div className="carousel-item">
-                    <img src={img4} alt="" />
-                </div>
-                <div className="carousel-item">
-                    <img src={img5} alt="" />
-                </div>
-                
-            </div>
 
-            <div className='flex-1 w-32 mt-16'>
-                <h2 className='font-bold text-4xl mb-8'>Furry Friends Bazaar: A Haven for Animal Lovers!</h2>
-                <p>Delight Your Furry Friends with Irresistible Toys and Treats. <br />
-
-                    Discover a world of joy and excitement for your beloved pets at Furry Friends Bazaar. From engaging toys to delectable treats, we offer a
-                    delightful assortment that will bring tail-wagging happiness to your furry companions.</p>
             </div>
         </div>
-        <small className='ms-24 ps-6'>Swipe to see toys</small>
-       </div>
     );
 };
 

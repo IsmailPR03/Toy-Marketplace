@@ -1,57 +1,92 @@
-import { useState } from "react";
-import "../../../../src/App.css";
-import SubCategory1 from "./SubCategory1";
-import SubCategory2 from "./SubCategory2";
-import SubCategory3 from "./SubCategory3";
-
+import { useEffect, useState } from 'react';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+import TeddyBearToys from './SubCategories/TeddyBearToys';
+import HorseToys from './SubCategories/HorseToys';
+import GiraffeToys from './SubCategories/GiraffeToys';
 
 const Category = () => {
-    const [toggleState, setToggleState] = useState(1);
 
-    const toggleTab = (index) => {
-        setToggleState(index);
-    };
+    const [categoryData, setCategoryData] = useState([]);
+    useEffect(() => {
+        fetch('http://localhost:5000/categoryToys')
+            .then(res => res.json())
+            .then(data => setCategoryData(data))
+    }, [])
+
+    const [teddyBearData, setTeddyBearData] = useState([])
+    useEffect(() => {
+        const teddyBearSubCategoryData = categoryData.filter(c => c.subCategory === "Teddy Bear Toys");
+        setTeddyBearData(teddyBearSubCategoryData)
+    }, [categoryData]);
+
+    const [horseData, setHorseData] = useState([]);
+    useEffect(() => {
+        const horseSubCategoryData = categoryData.filter(c => c.subCategory === "Horse Toys");
+        setHorseData(horseSubCategoryData)
+    }, [categoryData]);
+
+    const [giraffeData, setGiraffeData] = useState([]);
+    useEffect(() => {
+        const giraffeSubCategoryData = categoryData.filter(c => c.subCategory === "Giraffe Toys");
+        setGiraffeData(giraffeSubCategoryData)
+    }, [categoryData]);
+
+
+
     return (
-        <div className="container">
-            <div className="bloc-tabs">
-                <button
-                    className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
-                    onClick={() => toggleTab(1)}
-                >
-                    Teddy Bear
-                </button>
-                <button
-                    className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
-                    onClick={() => toggleTab(2)}
-                >
-                    Horse
-                </button>
-                <button
-                    className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
-                    onClick={() => toggleTab(3)}
-                >
-                    dinosaur
-                </button>
+        <div className="my-24">
+            <div className=" text-center space-y-5">
+                <h2 className="text-5xl font-bold">Shop By Category</h2>
+                <p className="text-xl">Shop the best toy from us. We deliver quality products and ensures your child safety.</p>
             </div>
+            <div className='mt-16'>
+                <Tabs>
+                    <TabList className="flex justify-center gap-1 md:gap-16 mb-8">
+                        <Tab><h2 className='text-xl'>Teddy Bear Toys</h2></Tab>
+                        <Tab><h2 className='text-xl'>Horse Toys</h2></Tab>
+                        <Tab><h2 className='text-xl'>Giraffee Toys</h2></Tab>
+                    </TabList>
 
-            <div className="content-tabs">
-                <div
-                    className={toggleState === 1 ? "content  active-content" : "content"}
-                >
-                   <SubCategory1></SubCategory1>
-                </div>
+                    <TabPanel>
+                        <div className='grid grid-cols-1 md:grid-cols-3'>
+                            {
+                                teddyBearData.map(teddyBear => <TeddyBearToys
 
-                <div
-                    className={toggleState === 2 ? "content  active-content" : "content"}
-                >
-                    <SubCategory2></SubCategory2>
-                </div>
+                                    key={teddyBear._id}
+                                    teddyBear={teddyBear}
 
-                <div
-                    className={toggleState === 3 ? "content  active-content" : "content"}
-                >
-                    <SubCategory3></SubCategory3>
-                </div>
+                                ></TeddyBearToys>)
+                            }
+                        </div>
+                    </TabPanel>
+
+                    <TabPanel>
+                        <div className='grid grid-cols-1 md:grid-cols-3'>
+                            {
+                                horseData.map(horse => <HorseToys
+
+                                    key={horse._id}
+                                    horse={horse}
+
+                                ></HorseToys>)
+                            }
+                        </div>
+                    </TabPanel>
+
+                    <TabPanel>
+                        <div className='grid grid-cols-1 md:grid-cols-3'>
+                            {
+                                giraffeData.map(giraffe => <GiraffeToys
+
+                                    key={giraffe._id}
+                                    giraffe={giraffe}
+
+                                ></GiraffeToys>)
+                            }
+                        </div>
+                    </TabPanel>
+                </Tabs>
             </div>
         </div>
     );
