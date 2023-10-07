@@ -3,16 +3,16 @@ import Main from "../Layout/Main";
 import Home from "../Pages/Home/Home/Home";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
-import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import AllToys from "../Pages/AllToys/AllToys";
 import ToyDetails from "../Pages/ToyDetails/ToyDetails";
+import AddAToy from "../Pages/AddAToy/AddAToy";
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <Main></Main>,
 
-        errorElement: <ErrorPage></ErrorPage>,
+        // errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 path: '/',
@@ -35,7 +35,12 @@ const router = createBrowserRouter([
                 path: '/allToys/:id',
                 element: <ToyDetails></ToyDetails>,
                 loader: ({params}) => fetch(`http://localhost:5000/allToys/${params.id}`)
+            },
+            {
+                path: '/addToy',
+                element:<AddAToy></AddAToy>
             }
+
 
         ]
 
